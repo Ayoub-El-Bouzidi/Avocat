@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('cases', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('firm_id')->nullable()->constrained('firms')->onDelete('cascade');
+            $table->foreignId('client_id')->nullable()->constrained('clients')->onDelete('cascade');
+            $table->foreignId('lawyer_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->string('case_number')->unique();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('court_name')->nullable();
+            $table->string('status')->default('open');
             $table->timestamps();
         });
     }
